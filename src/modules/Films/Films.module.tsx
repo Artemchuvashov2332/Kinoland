@@ -1,11 +1,15 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { SearchBar } from './components';
+import { Container } from '@mui/material';
+import { Banner, FilmsList, SearchBar } from './components';
 
 export const Films = () => {
   return (
-    <Box>
-      <SearchBar />
-    </Box>
+    <>
+      <Container>
+        <SearchBar />
+        <Banner />
+      </Container>
+      <FilmsList />
+    </>
   );
 };

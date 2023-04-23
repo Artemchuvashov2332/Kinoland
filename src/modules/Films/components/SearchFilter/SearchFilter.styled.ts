@@ -18,6 +18,7 @@ export const StyledFilterBar = styled(ButtonGroup)({
     visibility: 'visible',
     opacity: 1,
     backgroundColor: 'slategray',
+    zIndex: '10',
   },
 });
 
