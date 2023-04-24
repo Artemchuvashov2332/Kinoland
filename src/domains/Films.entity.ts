@@ -6,11 +6,14 @@ export interface IFilmsType {
 }
 
 export interface IFilmsEntity {
-  id: string;
-  name: string;
-  posterUrl: string;
-  type: IFilmsType[keyof IFilmsType];
-  genre: string;
-  year: number;
-  description?: string;
+  category: string;
+  data: {
+    id: string;
+    name: string;
+    posterUrl: string;
+    type: IFilmsType[keyof IFilmsType];
+    year: number;
+    rating: number;
+    description?: string;
+  };
 }

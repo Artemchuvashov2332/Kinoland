@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ListItem } from '@mui/material';
 import { FilmsCard } from '../index';
 import { StyledListRow } from './FilmsRow.styled';
+import { IFilmsRowProps } from './FilmsRow.types';
 
-const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-export const FilmsRow = () => {
+const FilmsRowProto = ({ nameCategory, filmsList }: IFilmsRowProps) => {
   return (
     <StyledListRow>
-      {arr.map((el) => (
-        <ListItem key={el}>
-          <FilmsCard />
+      {nameCategory}
+      {filmsList.map((film) => (
+        <ListItem key={film.data.id}>
+          <FilmsCard srcPoster={film.data.posterUrl} rating={film.data.rating} nameFilm={film.data.name} />
         </ListItem>
       ))}
     </StyledListRow>
   );
 };
+
+export const FilmsRow = memo(FilmsRowProto);

@@ -1,36 +1,171 @@
 import { IFilmsEntity } from 'domains/index';
 
+export const GenresFilmMock: IFilmsEntity['category'][] = ['Комедия', 'Ужасы', 'Мелодрамма', 'Детектив', 'Фантастика'];
+
+export const YearsFilmMock: IFilmsEntity['data']['year'][] = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+
 export const FilmsMock: IFilmsEntity[] = [
   {
-    id: '1',
-    name: 'Старикам тут не место',
-    posterUrl: '',
-    type: 'Фильмы',
-    genre: '',
-    year: 2022,
+    category: 'Комедия',
+    data: {
+      id: '1',
+      name: 'Старикам тут не место',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Фильмы',
+      rating: 7.4,
+      year: 2022,
+    },
   },
   {
-    id: '2',
-    name: 'Голяк',
-    posterUrl: '',
-    type: 'Сериалы',
-    genre: '',
-    year: 2020,
+    category: 'Комедия',
+    data: {
+      id: '2',
+      name: 'Голяк',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Сериалы',
+      rating: 7.4,
+      year: 2020,
+    },
   },
   {
-    id: '3',
-    name: 'Шрек Навсегда',
-    posterUrl: '',
-    type: 'Мультфильмы',
-    genre: '',
-    year: 2014,
+    category: 'Мелодрамма',
+    data: {
+      id: '3',
+      name: 'Шрек Навсегда',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Мультфильмы',
+      rating: 7.4,
+      year: 2014,
+    },
   },
   {
-    id: '4',
-    name: 'Наутро',
-    posterUrl: '',
-    type: 'Аниме',
-    genre: '',
-    year: 2023,
+    category: 'Детектив',
+    data: {
+      id: '4',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '5',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '6',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '7',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '8',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '9',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '10',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+  {
+    category: 'Детектив',
+    data: {
+      id: '11',
+      name: 'Наутро',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Аниме',
+      rating: 7.4,
+      year: 2023,
+    },
+  },
+];
+
+export const TopFilmsMock: IFilmsEntity[] = [
+  {
+    category: 'Детектив',
+    data: {
+      id: '1',
+      name: 'Старикам тут не место',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Фильмы',
+      rating: 7.4,
+      year: 2022,
+      description:
+        'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
+    },
+  },
+  {
+    category: 'Фантастика',
+    data: {
+      id: '2',
+      name: 'Голяк',
+      posterUrl:
+        'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
+      type: 'Сериалы',
+      rating: 7.4,
+      year: 2020,
+      description:
+        'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
+    },
   },
 ];
