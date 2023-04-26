@@ -1,8 +1,7 @@
 import { Box, Button, Stack, Typography, styled } from '@mui/material';
 
 export const StyledBannerContainer = styled(Box)({
-  height: '565px',
-  margin: '20px auto',
+  height: '100%',
   display: 'grid',
   gridTemplateColumns: 'repeat(12, 1fr)',
   gridTemplateRows: '423px auto',
