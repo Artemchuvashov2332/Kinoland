@@ -4,10 +4,9 @@ import { FilmsCard } from '../index';
 import { StyledListRow } from './FilmsRow.styled';
 import { IFilmsRowProps } from './FilmsRow.types';
 
-const FilmsRowProto = ({ nameCategory, filmsList }: IFilmsRowProps) => {
+const FilmsRowProto = ({ filmsList }: IFilmsRowProps) => {
   return (
     <StyledListRow>
-      {nameCategory}
       {filmsList.map((film) => (
         <ListItem key={film.data.id}>
           <FilmsCard srcPoster={film.data.posterUrl} rating={film.data.rating} nameFilm={film.data.name} />

@@ -1,4 +1,4 @@
-import { Box, IconButton, List, ListItem, styled } from '@mui/material';
+import { Box, List, ListItem, styled } from '@mui/material';
 
 type StyledCarouselBoxProps = {
   width: string;
@@ -16,20 +16,6 @@ export const StyledCarouselBox = styled(Box, {
   borderRadius: '24px',
   background: 'rgb(39 39 42)',
   overflow: 'hidden',
-}));
-
-export const StyledIconButtonPrev = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
-  left: '-8px',
-  top: '50%',
-  transform: 'translateY(-50%)',
-}));
-
-export const StyledIconButtonNext = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
-  right: '-8px',
-  top: '50%',
-  transform: 'translateY(-50%)',
 }));
 
 type StyledCarouselListProps = {

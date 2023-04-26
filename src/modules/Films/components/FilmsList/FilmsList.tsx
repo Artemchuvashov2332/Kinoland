@@ -18,8 +18,8 @@ const FilmsListProto = () => {
         <List>
           {filmStoreInstance.genres.map((genre) => (
             <StyledListRowItem key={genre}>
-              <StyledCategoryName>Название категории</StyledCategoryName>
-              <FilmsRow nameCategory={genre} filmsList={filterFilmsByGenre(genre)} />
+              <StyledCategoryName>{genre}</StyledCategoryName>
+              <FilmsRow filmsList={filterFilmsByGenre(genre)} />
             </StyledListRowItem>
           ))}
         </List>

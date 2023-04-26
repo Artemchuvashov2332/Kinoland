@@ -1,18 +1,10 @@
-import React, { TouchEvent, useEffect, useState } from 'react';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import React, { TouchEvent, memo, useEffect, useState } from 'react';
 import { ICaroselProps } from './Carouser.types';
-import {
-  StyledCarouselListItem,
-  StyledCarouselBox,
-  StyledCarouselList,
-  StyledIconButtonNext,
-  StyledIconButtonPrev,
-  StyledCarouselDots,
-} from './Carousel.styled';
+import { StyledCarouselListItem, StyledCarouselBox, StyledCarouselList, StyledCarouselDots } from './Carousel.styled';
 import { DotsList } from './DotsList/index';
+import { Arrows } from './Arrows';
 
-export const Carousel = ({
+const CarouselProto = ({
   width,
   height,
   arrow = true,
@@ -82,16 +74,7 @@ export const Carousel = ({
           return <StyledCarouselListItem key={i}>{child}</StyledCarouselListItem>;
         })}
       </StyledCarouselList>
-      {arrow && (
-        <>
-          <StyledIconButtonPrev onClick={() => changeSlide(-1)}>
-            <ArrowBackIosNewIcon />
-          </StyledIconButtonPrev>
-          <StyledIconButtonNext onClick={() => changeSlide(1)}>
-            <ArrowForwardIosIcon />
-          </StyledIconButtonNext>
-        </>
-      )}
+      {arrow && <Arrows changeSlide={changeSlide} />}
       {dots && (
         <StyledCarouselDots>
           <DotsList currSlide={currSlide} slideLength={React.Children.count(children)} goToSlide={goToSlide} />
@@ -100,3 +83,5 @@ export const Carousel = ({
     </StyledCarouselBox>
   );
 };
+
+export const Carousel = memo(CarouselProto);
