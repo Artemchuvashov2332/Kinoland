@@ -1,4 +1,4 @@
-import { IFilmsEntity } from 'domains/index';
+import { IFilmsEntity, ITopFilmEntity } from 'domains/index';
 
 export const GenresFilmMock: IFilmsEntity['category'][] = ['Комедия', 'Ужасы', 'Мелодрамма', 'Детектив', 'Фантастика'];
 
@@ -139,7 +139,7 @@ export const FilmsMock: IFilmsEntity[] = [
   },
 ];
 
-export const TopFilmsMock: IFilmsEntity[] = [
+export const TopFilmsMock: ITopFilmEntity[] = [
   {
     category: 'Детектив',
     data: {
@@ -147,7 +147,6 @@ export const TopFilmsMock: IFilmsEntity[] = [
       name: 'Старикам тут не место',
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
-      type: 'Фильмы',
       rating: 7.4,
       year: 2022,
       description:
@@ -161,7 +160,6 @@ export const TopFilmsMock: IFilmsEntity[] = [
       name: 'Голяк',
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
-      type: 'Сериалы',
       rating: 7.4,
       year: 2020,
       description:
@@ -175,7 +173,6 @@ export const TopFilmsMock: IFilmsEntity[] = [
       name: 'Голяк',
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
-      type: 'Сериалы',
       rating: 7.4,
       year: 2020,
       description:
@@ -189,7 +186,6 @@ export const TopFilmsMock: IFilmsEntity[] = [
       name: 'Голяк',
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
-      type: 'Сериалы',
       rating: 7.4,
       year: 2020,
       description:
@@ -203,7 +199,6 @@ export const TopFilmsMock: IFilmsEntity[] = [
       name: 'Голяк',
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
-      type: 'Сериалы',
       rating: 7.4,
       year: 2020,
       description:

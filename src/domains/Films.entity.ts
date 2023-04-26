@@ -12,8 +12,14 @@ export interface IFilmsEntity {
     name: string;
     posterUrl: string;
     type: IFilmsType[keyof IFilmsType];
-    year: number;
-    rating: number;
+    year: number | 'Неизвестно';
+    rating: number | 'Неизвестно';
     description?: string;
   };
+}
+
+type ITopFilmEntityData = Omit<IFilmsEntity['data'], 'type'>;
+export interface ITopFilmEntity {
+  category: string;
+  data: ITopFilmEntityData;
 }

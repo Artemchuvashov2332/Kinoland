@@ -2,6 +2,7 @@ import React, { MouseEvent } from 'react';
 import { List } from '@mui/material';
 import { Dot } from '../Dot/index';
 import { IDotsListProps } from './DotsList.types';
+import { StyledCarouselDots } from './DostList.styled';
 
 export const DotsList = ({ currSlide, slideLength, goToSlide }: IDotsListProps) => {
   const dots: number[] = [];
@@ -19,10 +20,12 @@ export const DotsList = ({ currSlide, slideLength, goToSlide }: IDotsListProps) 
   };
 
   return (
-    <List onClick={onClickHandler}>
-      {dots.map((dot) => (
-        <Dot key={dot} number={dot} slideNumber={currSlide} />
-      ))}
-    </List>
+    <StyledCarouselDots>
+      <List onClick={onClickHandler}>
+        {dots.map((dot) => (
+          <Dot key={dot} number={dot} slideNumber={currSlide} />
+        ))}
+      </List>
+    </StyledCarouselDots>
   );
 };

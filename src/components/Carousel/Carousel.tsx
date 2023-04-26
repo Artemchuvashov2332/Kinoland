@@ -1,6 +1,6 @@
 import React, { TouchEvent, memo, useEffect, useState } from 'react';
 import { ICaroselProps } from './Carouser.types';
-import { StyledCarouselListItem, StyledCarouselBox, StyledCarouselList, StyledCarouselDots } from './Carousel.styled';
+import { StyledCarouselListItem, StyledCarouselBox, StyledCarouselList } from './Carousel.styled';
 import { DotsList } from './DotsList/index';
 import { Arrows } from './Arrows';
 
@@ -75,11 +75,7 @@ const CarouselProto = ({
         })}
       </StyledCarouselList>
       {arrow && <Arrows changeSlide={changeSlide} />}
-      {dots && (
-        <StyledCarouselDots>
-          <DotsList currSlide={currSlide} slideLength={React.Children.count(children)} goToSlide={goToSlide} />
-        </StyledCarouselDots>
-      )}
+      {dots && <DotsList currSlide={currSlide} slideLength={React.Children.count(children)} goToSlide={goToSlide} />}
     </StyledCarouselBox>
   );
 };

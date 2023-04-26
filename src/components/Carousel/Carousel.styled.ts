@@ -38,10 +38,3 @@ export const StyledCarouselListItem = styled(ListItem)({
   flex: '0 0 auto',
   padding: '0 16px',
 });
-
-export const StyledCarouselDots = styled(Box)({
-  position: 'absolute',
-  bottom: '0px',
-  left: '50%',
-  transform: 'translateX(-50%)',
-});

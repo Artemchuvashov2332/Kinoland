@@ -40,7 +40,7 @@ const BannerProto = ({ film }: IBannerProps) => {
         </StyledDescription>
       </StyledDescriptionStack>
       <StyledFilmPoster>
-        <img src={posterUrl} width={'100%'} loading="lazy" />
+        <img src={posterUrl} width={'100%'} height={'100%'} loading="lazy" />
       </StyledFilmPoster>
       <StyledLinkButton>Подробнее</StyledLinkButton>
     </StyledBannerContainer>

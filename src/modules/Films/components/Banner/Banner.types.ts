@@ -1,5 +1,5 @@
-import { IFilmsEntity } from 'domains/Films.entity';
+import { ITopFilmEntity } from 'domains/Films.entity';
 
 export interface IBannerProps {
-  film: IFilmsEntity;
+  film: ITopFilmEntity;
 }

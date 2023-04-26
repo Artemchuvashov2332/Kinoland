@@ -1,7 +1,9 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { IFilmsEntity } from 'domains/index';
-import { FilmsMock, GenresFilmMock, TopFilmsMock, YearsFilmMock } from '__mocks__/Films.mock';
+import { IFilmsEntity, ITopFilmEntity } from 'domains/index';
+import { FilmsMock, GenresFilmMock, YearsFilmMock } from '__mocks__/Films.mock';
 import { delay } from 'helpers/index';
+import { filmAgentInstance } from 'http/agent';
+import { mapToInternalTopFilms } from 'helpers/mapper';
 
 type PrivateField = '_years' | '_genres' | '_films' | '_topFilms' | '_isError' | '_isLoader';
 
@@ -29,7 +31,7 @@ class FilmStore {
   private _years: IFilmsEntity['data']['year'][] = [];
   private _genres: IFilmsEntity['category'][] = [];
   private _films: IFilmsEntity[] = [];
-  private _topFilms: IFilmsEntity[] = [];
+  private _topFilms: ITopFilmEntity[] = [];
   private _isError = false;
   private _isLoader = true;
 
@@ -75,9 +77,10 @@ class FilmStore {
     try {
       this._isLoader = true;
 
-      await delay(2500);
+      const res = await filmAgentInstance.getTopFilms({ type: 'TOP_100_POPULAR_FILMS', page: 1 });
+      const topFilms = mapToInternalTopFilms(res);
 
-      this._topFilms = TopFilmsMock;
+      this._topFilms = topFilms;
     } catch (error) {
       this._isError = true;
     } finally {
