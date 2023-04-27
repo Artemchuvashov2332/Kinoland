@@ -56,13 +56,9 @@ export const mapToInternalFilters = (filters: GetFiltersResponse): IFilmsFilter 
   return filmsFilterArr;
 };
 
-export const mapToExternalSearch = ({
-  type,
-  categories,
-  countries,
-  year,
-  keyword,
-}: ISearchParamsEntity): GetFilmsByFilterParams => {
+export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilmsByFilterParams => {
+  const { type, categories, countries, year, keyword } = searchParams;
+
   let filmType: GetFilmsByFilterParams['type'];
 
   if (type === 'Фильмы') filmType = 'FILM';
@@ -87,12 +83,19 @@ export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsEntity
 
   films.items.forEach((film) => {
     if (film.kinopoiskId) {
-      const category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
+      let category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
       let filmType: IFilmsEntity['data']['type'] = SEARCH_FILTER.Films;
 
       if (film.type === 'TV_SERIES') filmType = SEARCH_FILTER.Series;
-      if (category.includes(SEARCH_FILTER.Cartoon)) filmType = SEARCH_FILTER.Cartoon;
-      if (category.includes(SEARCH_FILTER.Anime)) filmType = SEARCH_FILTER.Anime;
+      if (category.includes(SEARCH_FILTER.Cartoon)) {
+        filmType = SEARCH_FILTER.Cartoon;
+        category = [SEARCH_FILTER.Cartoon];
+      }
+
+      if (category.includes(SEARCH_FILTER.Anime)) {
+        filmType = SEARCH_FILTER.Anime;
+        category = [SEARCH_FILTER.Anime];
+      }
 
       filmsArr.push({
         category: category,

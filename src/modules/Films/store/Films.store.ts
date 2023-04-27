@@ -1,12 +1,12 @@
 import { makeObservable, observable, computed, action } from 'mobx';
 import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
-import { FilmsMock } from '__mocks__/Films.mock';
 import {
   fiveRandonGenre,
   mapToExternalSearch,
   mapToInternalFilms,
   mapToInternalFilters,
   mapToInternalTopFilms,
+  deleteDuplicateFilms,
 } from 'helpers/index';
 import { filmAgentInstance } from 'http/agent';
 
@@ -33,7 +33,7 @@ class FilmStore {
 
       loarRandomFilm: action,
       loadTopFilms: action,
-      loadFilms: action,
+      loadFilmsByParams: action,
       loadGenresCountries: action,
     });
   }
@@ -85,9 +85,7 @@ class FilmStore {
       const randonGenres = fiveRandonGenre(this._genres);
 
       randonGenres.forEach(async (randonGenre) => {
-        const params = mapToExternalSearch({ categories: { id: randonGenre.id } });
-        const res = await filmAgentInstance.getFilmsByFilter(params);
-        this._films.push(...mapToInternalFilms(res));
+        await this.loadFilmsByParams({ categories: { id: randonGenre.id } });
         this._listCategory.push(randonGenre);
       });
     } catch (error) {
@@ -97,14 +95,17 @@ class FilmStore {
     }
   }
 
-  async loadFilms(params: ISearchParamsEntity) {
+  async loadFilmsByParams(params: ISearchParamsEntity) {
     try {
       this._isLoader = true;
       if (!this._genres.length || !this._countries.length) {
         await this.loadGenresCountries();
       }
 
-      this._films = FilmsMock;
+      const externalParams = mapToExternalSearch(params);
+      const res = await filmAgentInstance.getFilmsByFilter(externalParams);
+      this._films.push(...mapToInternalFilms(res));
+      this._films = deleteDuplicateFilms(this._films);
     } catch (error) {
       this._isError = true;
     } finally {

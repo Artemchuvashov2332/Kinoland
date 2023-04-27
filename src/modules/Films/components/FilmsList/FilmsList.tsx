@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { List } from '@mui/material';
 import { observer } from 'mobx-react';
 import { FilmsRow } from '../index';
@@ -12,9 +12,9 @@ const FilmsListProto = () => {
   }, []);
 
   //Костыльно, потом подумать чё с этим можно сделать!
-  const filterFilmsByGenre = useCallback((category: string) => {
+  const filterFilmsByGenre = (category: string) => {
     return filmStoreInstance.films.filter((film) => film.category.includes(category));
-  }, []);
+  };
 
   return (
     <>
@@ -23,7 +23,7 @@ const FilmsListProto = () => {
           {filmStoreInstance.listCategory.map((category) => (
             <StyledListRowItem key={category.id}>
               <StyledCategoryName>{category.genre}</StyledCategoryName>
-              <FilmsRow filmsList={filterFilmsByGenre(category.genre)} />
+              <FilmsRow nameCategory={category.genre} filmsList={filterFilmsByGenre(category.genre)} />
             </StyledListRowItem>
           ))}
         </List>

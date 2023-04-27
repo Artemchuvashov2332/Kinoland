@@ -3,4 +3,5 @@ import { IFilmsEntity } from 'domains/Films.entity';
 
 export interface IFilmsRowProps extends PropsWithChildren {
   filmsList: IFilmsEntity[];
+  nameCategory: string;
 }
