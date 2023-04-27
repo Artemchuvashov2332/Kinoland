@@ -1,14 +1,14 @@
 import { IFilmsFilter } from 'domains/index';
 
 const copyGenreList: IFilmsFilter['category'] = [];
-const firstCall = true;
+let firstCall = true;
 
 export const fiveRandonGenre = (genreList: IFilmsFilter['category']): IFilmsFilter['category'] => {
   const randomGenreId: IFilmsFilter['category'] = [];
 
   if (firstCall) {
     copyGenreList.push(...genreList);
-    !firstCall;
+    firstCall = false;
   }
 
   for (let i = 0; i < 5; i++) {

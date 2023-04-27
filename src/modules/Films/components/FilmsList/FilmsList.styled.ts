@@ -1,6 +1,12 @@
-import { ListItem, Typography, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
-export const StyledListRowItem = styled(ListItem)({
+export const StyledLoaderBox = styled(Box)({
+  display: 'inline-flex',
+  justifyContent: 'center',
+  width: '100%',
+});
+
+export const StyledBoxItem = styled(Box)({
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
