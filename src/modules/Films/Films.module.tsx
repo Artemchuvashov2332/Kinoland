@@ -7,9 +7,8 @@ import { Carousel } from 'components/index';
 
 const FilmsProto = () => {
   useEffect(() => {
-    filmStoreInstance.loadFilms();
     filmStoreInstance.loadTopFilms();
-    filmStoreInstance.loadGenresYears();
+    filmStoreInstance.loadGenresCountries();
   }, []);
   return (
     <>

@@ -5,8 +5,19 @@ export interface IFilmsType {
   Anime: 'Аниме';
 }
 
+export interface IFilmsFilter {
+  category: {
+    id: number;
+    genre: string;
+  }[];
+  countries: {
+    id: number;
+    country: string;
+  }[];
+}
+
 export interface IFilmsEntity {
-  category: string;
+  category: string[];
   data: {
     id: string;
     name: string;

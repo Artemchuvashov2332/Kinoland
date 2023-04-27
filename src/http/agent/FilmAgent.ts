@@ -1,5 +1,12 @@
 import { BasicAgent } from './BasicAgent';
-import { GetTopFilmsParams, GetTopFilmsResponse } from 'http/model';
+import {
+  GetFilmByFilterResponse,
+  GetFilmDataByIdParams,
+  GetFilmsByFilterParams,
+  GetFiltersResponse,
+  GetTopFilmsParams,
+  GetTopFilmsResponse,
+} from 'http/model';
 
 class FilmAgent extends BasicAgent {
   constructor() {
@@ -16,6 +23,22 @@ class FilmAgent extends BasicAgent {
       params: {
         type,
         page,
+      },
+    });
+
+    return res.data;
+  }
+
+  async getFilters(): Promise<GetFiltersResponse> {
+    const res = await this.$http.get('/api/v2.2/films/filters');
+
+    return res.data;
+  }
+
+  async getFilmsByFilter(searchParams: GetFilmsByFilterParams): Promise<GetFilmByFilterResponse> {
+    const res = await this.$http('/api/v2.2/films', {
+      params: {
+        ...searchParams,
       },
     });
 

@@ -1,42 +1,53 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { IFilmsEntity, ITopFilmEntity } from 'domains/index';
-import { FilmsMock, GenresFilmMock, YearsFilmMock } from '__mocks__/Films.mock';
-import { delay } from 'helpers/index';
+import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
+import { FilmsMock } from '__mocks__/Films.mock';
+import {
+  fiveRandonGenre,
+  mapToExternalSearch,
+  mapToInternalFilms,
+  mapToInternalFilters,
+  mapToInternalTopFilms,
+} from 'helpers/index';
 import { filmAgentInstance } from 'http/agent';
-import { mapToInternalTopFilms } from 'helpers/mapper';
 
-type PrivateField = '_years' | '_genres' | '_films' | '_topFilms' | '_isError' | '_isLoader';
+type PrivateField = '_countries' | '_genres' | '_films' | '_topFilms' | '_listCategory' | '_isError' | '_isLoader';
 
 class FilmStore {
   constructor() {
     makeObservable<this, PrivateField>(this, {
-      _years: observable,
+      _countries: observable,
       _genres: observable,
+      _listCategory: observable,
       _films: observable,
       _topFilms: observable,
       _isError: observable,
       _isLoader: observable,
 
-      years: computed,
+      countries: computed,
       genres: computed,
       films: computed,
       topFilms: computed,
+      listCategory: computed,
       isError: computed,
       isLoader: computed,
 
+      loarRandomFilm: action,
       loadTopFilms: action,
+      loadFilms: action,
+      loadGenresCountries: action,
     });
   }
 
-  private _years: IFilmsEntity['data']['year'][] = [];
-  private _genres: IFilmsEntity['category'][] = [];
+  private _countries: IFilmsFilter['countries'] = [];
+  private _genres: IFilmsFilter['category'] = [];
   private _films: IFilmsEntity[] = [];
   private _topFilms: ITopFilmEntity[] = [];
+  private _listCategory: IFilmsFilter['category'] = [];
   private _isError = false;
   private _isLoader = true;
 
-  get years() {
-    return this._years;
+  get countries() {
+    return this._countries;
   }
 
   get genres() {
@@ -51,6 +62,10 @@ class FilmStore {
     return this._topFilms;
   }
 
+  get listCategory() {
+    return this._listCategory;
+  }
+
   get isError() {
     return this._isError;
   }
@@ -59,11 +74,35 @@ class FilmStore {
     return this._isLoader;
   }
 
-  async loadFilms() {
+  async loarRandomFilm() {
     try {
       this._isLoader = true;
 
-      await delay(2500);
+      if (!this._genres.length || !this._countries.length) {
+        await this.loadGenresCountries();
+      }
+
+      const randonGenres = fiveRandonGenre(this._genres);
+
+      randonGenres.forEach(async (randonGenre) => {
+        const params = mapToExternalSearch({ categories: { id: randonGenre.id } });
+        const res = await filmAgentInstance.getFilmsByFilter(params);
+        this._films.push(...mapToInternalFilms(res));
+        this._listCategory.push(randonGenre);
+      });
+    } catch (error) {
+      this._isError = true;
+    } finally {
+      this._isLoader = false;
+    }
+  }
+
+  async loadFilms(params: ISearchParamsEntity) {
+    try {
+      this._isLoader = true;
+      if (!this._genres.length || !this._countries.length) {
+        await this.loadGenresCountries();
+      }
 
       this._films = FilmsMock;
     } catch (error) {
@@ -88,14 +127,15 @@ class FilmStore {
     }
   }
 
-  async loadGenresYears() {
+  async loadGenresCountries() {
     try {
       this._isLoader = true;
 
-      await delay(2500);
+      const res = await filmAgentInstance.getFilters();
+      const filters = mapToInternalFilters(res);
 
-      this._genres = GenresFilmMock;
-      this._years = YearsFilmMock;
+      this._genres = filters.category;
+      this._countries = filters.countries;
     } catch (error) {
       this._isError = true;
     } finally {

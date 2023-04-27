@@ -1,12 +1,26 @@
-import { IFilmsEntity, ITopFilmEntity } from 'domains/index';
+import { IFilmsEntity, IFilmsFilter, ITopFilmEntity } from 'domains/index';
 
-export const GenresFilmMock: IFilmsEntity['category'][] = ['Комедия', 'Ужасы', 'Мелодрамма', 'Детектив', 'Фантастика'];
+export const GenresFilmMock: IFilmsFilter['category'] = [
+  { id: 1, genre: 'Комедия' },
+  { id: 2, genre: 'Ужасы' },
+  { id: 3, genre: 'Мелодрамма' },
+  { id: 4, genre: 'Детектив' },
+  { id: 5, genre: 'Фантастика' },
+];
+
+export const CountriesFilmMock: IFilmsFilter['countries'] = [
+  { id: 1, country: 'Россия' },
+  { id: 2, country: 'Америка' },
+  { id: 3, country: 'Казахстан' },
+  { id: 4, country: 'Китай' },
+  { id: 5, country: 'Дания' },
+];
 
 export const YearsFilmMock: IFilmsEntity['data']['year'][] = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
 
 export const FilmsMock: IFilmsEntity[] = [
   {
-    category: 'Комедия',
+    category: ['Комедия'],
     data: {
       id: '1',
       name: 'Старикам тут не место',
@@ -18,7 +32,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Комедия',
+    category: ['Комедия'],
     data: {
       id: '2',
       name: 'Голяк',
@@ -30,7 +44,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Мелодрамма',
+    category: ['Мелодрамма'],
     data: {
       id: '3',
       name: 'Шрек Навсегда',
@@ -42,7 +56,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '4',
       name: 'Наутро',
@@ -54,7 +68,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '5',
       name: 'Наутро',
@@ -66,7 +80,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '6',
       name: 'Наутро',
@@ -78,7 +92,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '7',
       name: 'Наутро',
@@ -90,7 +104,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '8',
       name: 'Наутро',
@@ -102,7 +116,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '9',
       name: 'Наутро',
@@ -114,7 +128,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '10',
       name: 'Наутро',
@@ -126,7 +140,7 @@ export const FilmsMock: IFilmsEntity[] = [
     },
   },
   {
-    category: 'Детектив',
+    category: ['Детектив'],
     data: {
       id: '11',
       name: 'Наутро',

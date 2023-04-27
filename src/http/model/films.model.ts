@@ -8,7 +8,14 @@ export type GetFilmDataByIdParams = paths['/api/v2.2/films/{id}']['get']['parame
 export type GetFilmDataByIdResponse =
   paths['/api/v2.2/films/{id}']['get']['responses']['200']['content']['application/json'];
 
-export type GetFiltersGenreResponse =
-  paths['/api/v2.2/films/filters']['get']['responses']['200']['content']['application/json']['genres'];
-export type GetFiltersCountryResponse =
-  paths['/api/v2.2/films/filters']['get']['responses']['200']['content']['application/json']['countries'];
+export type GetFiltersResponse =
+  paths['/api/v2.2/films/filters']['get']['responses']['200']['content']['application/json'];
+
+type FilmsFilterGenre = {
+  genres: number | undefined;
+};
+type FilterParams = paths['/api/v2.2/films']['get']['parameters']['query'];
+
+export type GetFilmsByFilterParams = Omit<FilterParams, 'genres'> & FilmsFilterGenre;
+export type GetFilmByFilterResponse =
+  paths['/api/v2.2/films']['get']['responses']['200']['content']['application/json'];
