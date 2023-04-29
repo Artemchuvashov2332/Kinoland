@@ -16,20 +16,26 @@ export interface IFilmsFilter {
   }[];
 }
 
+export interface IFilmsDataEntity {
+  id: string;
+  name: string;
+  posterUrl: string;
+  type: IFilmsType[keyof IFilmsType];
+  year: number | 'Неизвестно';
+  rating: number | 'Неизвестно';
+  description?: string;
+}
 export interface IFilmsEntity {
   category: string[];
-  data: {
-    id: string;
-    name: string;
-    posterUrl: string;
-    type: IFilmsType[keyof IFilmsType];
-    year: number | 'Неизвестно';
-    rating: number | 'Неизвестно';
-    description?: string;
-  };
+  data: IFilmsDataEntity;
 }
 
-type ITopFilmEntityData = Omit<IFilmsEntity['data'], 'type'>;
+export interface IFilmsByCategory {
+  category: string;
+  items: IFilmsDataEntity[];
+}
+
+type ITopFilmEntityData = Omit<IFilmsDataEntity, 'type'>;
 export interface ITopFilmEntity {
   category: string;
   data: ITopFilmEntityData;

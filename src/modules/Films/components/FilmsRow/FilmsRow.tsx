@@ -1,18 +1,21 @@
 import React, { memo } from 'react';
 import { ListItem } from '@mui/material';
 import { FilmsCard } from '../index';
-import { StyledListRow } from './FilmsRow.styled';
+import { StyledListRow, StyledBoxItem, StyledCategoryName } from './FilmsRow.styled';
 import { IFilmsRowProps } from './FilmsRow.types';
 
 const FilmsRowProto = ({ filmsList, nameCategory }: IFilmsRowProps) => {
   return (
-    <StyledListRow>
-      {filmsList.map((film) => (
-        <ListItem key={`${film.data.id}${nameCategory}`}>
-          <FilmsCard srcPoster={film.data.posterUrl} rating={film.data.rating} nameFilm={film.data.name} />
-        </ListItem>
-      ))}
-    </StyledListRow>
+    <StyledBoxItem>
+      <StyledCategoryName>{nameCategory}</StyledCategoryName>
+      <StyledListRow>
+        {filmsList.map((film) => (
+          <ListItem key={`${film.id}${nameCategory}`}>
+            <FilmsCard srcPoster={film.posterUrl} rating={film.rating} nameFilm={film.name} />
+          </ListItem>
+        ))}
+      </StyledListRow>
+    </StyledBoxItem>
   );
 };
 

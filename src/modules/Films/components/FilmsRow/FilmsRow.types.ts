@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
-import { IFilmsEntity } from 'domains/Films.entity';
+import { IFilmsDataEntity } from 'domains/index';
 
 export interface IFilmsRowProps extends PropsWithChildren {
-  filmsList: IFilmsEntity[];
+  filmsList: IFilmsDataEntity[];
   nameCategory: string;
 }

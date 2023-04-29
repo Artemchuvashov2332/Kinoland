@@ -1,6 +1,6 @@
 import { isGoodGenre } from './index';
 import { SEARCH_FILTER } from 'constants/index';
-import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
+import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity, IFilmsDataEntity } from 'domains/index';
 import { GetFilmByFilterResponse, GetFilmsByFilterParams, GetFiltersResponse, GetTopFilmsResponse } from 'http/model';
 
 export const mapToInternalTopFilms = (films: GetTopFilmsResponse): ITopFilmEntity[] => {
@@ -78,10 +78,12 @@ export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilms
   return params;
 };
 
-export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsEntity[] => {
+export const mapToInternalSearch = (films: GetFilmByFilterResponse): IFilmsEntity[] => {
   const filmsArr: IFilmsEntity[] = [];
 
   films.items.forEach((film) => {
+    if (film.genres?.some((genre) => !isGoodGenre(genre.genre))) return;
+
     if (film.kinopoiskId) {
       let category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
       let filmType: IFilmsEntity['data']['type'] = SEARCH_FILTER.Films;
@@ -107,6 +109,41 @@ export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsEntity
           year: film.year || 'Неизвестно',
           rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
         },
+      });
+    }
+  });
+
+  return filmsArr;
+};
+
+export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsDataEntity[] => {
+  const filmsArr: IFilmsDataEntity[] = [];
+
+  films.items.forEach((film) => {
+    if (film.genres?.some((genre) => !isGoodGenre(genre.genre))) return;
+
+    if (film.kinopoiskId) {
+      let category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
+      let filmType: IFilmsEntity['data']['type'] = SEARCH_FILTER.Films;
+
+      if (film.type === 'TV_SERIES') filmType = SEARCH_FILTER.Series;
+      if (category.includes(SEARCH_FILTER.Cartoon)) {
+        filmType = SEARCH_FILTER.Cartoon;
+        category = [SEARCH_FILTER.Cartoon];
+      }
+
+      if (category.includes(SEARCH_FILTER.Anime)) {
+        filmType = SEARCH_FILTER.Anime;
+        category = [SEARCH_FILTER.Anime];
+      }
+
+      filmsArr.push({
+        id: film.kinopoiskId.toString(),
+        name: film.nameRu ?? film.nameEn ?? film.nameOriginal ?? 'Неизвестно',
+        posterUrl: film.posterUrl || film.posterUrlPreview || '',
+        type: filmType,
+        year: film.year || 'Неизвестно',
+        rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
       });
     }
   });

@@ -1,5 +1,5 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
+import { IFilmsByCategory, IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
 import {
   fiveRandonGenre,
   mapToExternalSearch,
@@ -8,27 +8,35 @@ import {
   mapToInternalTopFilms,
   deleteDuplicateFilms,
   delay,
+  mapToInternalSearch,
 } from 'helpers/index';
 import { filmAgentInstance } from 'http/agent';
 
-type PrivateField = '_countries' | '_genres' | '_films' | '_topFilms' | '_listCategory' | '_isError' | '_isLoader';
+type PrivateField =
+  | '_countries'
+  | '_genres'
+  | '_searchFilms'
+  | '_topFilms'
+  | '_filmsByCategory'
+  | '_isError'
+  | '_isLoader';
 
 class FilmStore {
   constructor() {
     makeObservable<this, PrivateField>(this, {
       _countries: observable,
       _genres: observable,
-      _listCategory: observable,
-      _films: observable,
+      _filmsByCategory: observable,
+      _searchFilms: observable,
       _topFilms: observable,
       _isError: observable,
       _isLoader: observable,
 
       countries: computed,
       genres: computed,
-      films: computed,
+      searchFilms: computed,
       topFilms: computed,
-      listCategory: computed,
+      filmsByCategory: computed,
       isError: computed,
       isLoader: computed,
 
@@ -41,9 +49,9 @@ class FilmStore {
 
   private _countries: IFilmsFilter['countries'] = [];
   private _genres: IFilmsFilter['category'] = [];
-  private _films: IFilmsEntity[] = [];
+  private _searchFilms: IFilmsEntity[] = [];
   private _topFilms: ITopFilmEntity[] = [];
-  private _listCategory: IFilmsFilter['category'] = [];
+  private _filmsByCategory: IFilmsByCategory[] = [];
   private _isError = false;
   private _isLoader = true;
 
@@ -55,16 +63,16 @@ class FilmStore {
     return this._genres;
   }
 
-  get films() {
-    return this._films;
+  get searchFilms() {
+    return this._searchFilms;
   }
 
   get topFilms() {
     return this._topFilms;
   }
 
-  get listCategory() {
-    return this._listCategory;
+  get filmsByCategory() {
+    return this._filmsByCategory;
   }
 
   get isError() {
@@ -89,11 +97,11 @@ class FilmStore {
       for (const randonGenre of randonGenres) {
         const externalParams = mapToExternalSearch({ categories: { id: randonGenre.id } });
         const res = await filmAgentInstance.getFilmsByFilter(externalParams);
-        this._films.push(...mapToInternalFilms(res));
-        this._films = deleteDuplicateFilms(this._films);
+        this._filmsByCategory.push({
+          category: randonGenre.genre,
+          items: mapToInternalFilms(res),
+        });
       }
-
-      this._listCategory.push(...randonGenres);
     } catch (error) {
       this._isError = true;
     } finally {
@@ -112,8 +120,8 @@ class FilmStore {
 
       const externalParams = mapToExternalSearch(params);
       const res = await filmAgentInstance.getFilmsByFilter(externalParams);
-      this._films.push(...mapToInternalFilms(res));
-      this._films = deleteDuplicateFilms(this._films);
+      this._searchFilms.push(...mapToInternalSearch(res));
+      this._searchFilms = deleteDuplicateFilms(this._searchFilms);
     } catch (error) {
       this._isError = true;
     } finally {
