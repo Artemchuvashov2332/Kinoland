@@ -1,12 +1,19 @@
-import { Box, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
 export const FilmCardBox = styled(Box)({
   position: 'relative',
   cursor: 'pointer',
   transition: 'all .5s ease',
+  width: '180px',
   '&:hover': {
     transform: 'scale(1.2)',
   },
+});
+
+export const StyledFilmName = styled(Typography)({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 });
 
 export const FilmRating = styled(Box)({

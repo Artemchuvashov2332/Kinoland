@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CircularProgress, Skeleton } from '@mui/material';
-import { ILoaderProgres, ILoaderSkeleton } from './Loader.types';
+import { ILoaderProps, TypeLoader } from './Loader.types';
 
-export const Loader = ({ isLoading, children, typeLoader = 'progress', props }: ILoaderProgres | ILoaderSkeleton) => {
+export const LoaderProto = ({ isLoading, children, typeLoader = 'progress', props }: ILoaderProps<TypeLoader>) => {
   return (
     <>
       {isLoading ? (
         <>
-          {typeLoader === 'progress' && <CircularProgress {...(props as ILoaderProgres['props'])} />}
-          {typeLoader === 'sketeton' && <Skeleton {...(props as ILoaderSkeleton['props'])} />}
+          {typeLoader === 'progress' && <CircularProgress {...(props as ILoaderProps<'progress'>['props'])} />}
+          {typeLoader === 'sketeton' && <Skeleton {...(props as ILoaderProps<'sketeton'>['props'])} />}
         </>
       ) : (
         <>{children}</>
@@ -16,3 +16,5 @@ export const Loader = ({ isLoading, children, typeLoader = 'progress', props }: 
     </>
   );
 };
+
+export const Loader = memo(LoaderProto);

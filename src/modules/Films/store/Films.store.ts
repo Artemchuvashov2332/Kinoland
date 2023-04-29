@@ -86,10 +86,14 @@ class FilmStore {
       await delay(1000);
       const randonGenres = fiveRandonGenre(this._genres);
 
-      randonGenres.forEach(async (randonGenre) => {
-        this._listCategory.push(randonGenre);
-        await this.loadFilmsByParams({ categories: { id: randonGenre.id } });
-      });
+      for (const randonGenre of randonGenres) {
+        const externalParams = mapToExternalSearch({ categories: { id: randonGenre.id } });
+        const res = await filmAgentInstance.getFilmsByFilter(externalParams);
+        this._films.push(...mapToInternalFilms(res));
+        this._films = deleteDuplicateFilms(this._films);
+      }
+
+      this._listCategory.push(...randonGenres);
     } catch (error) {
       this._isError = true;
     } finally {
@@ -103,6 +107,8 @@ class FilmStore {
       if (!this._genres.length || !this._countries.length) {
         await this.loadGenresCountries();
       }
+
+      await delay(1000);
 
       const externalParams = mapToExternalSearch(params);
       const res = await filmAgentInstance.getFilmsByFilter(externalParams);

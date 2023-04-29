@@ -43,7 +43,7 @@ const FilmsListProto = () => {
         </StyledBoxItem>
       ))}
       <StyledLoaderBox>
-        <Loader isLoading={filmStoreInstance.isLoader}></Loader>
+        <Loader isLoading={filmStoreInstance.isLoader} typeLoader="progress" props={{ color: 'warning' }}></Loader>
       </StyledLoaderBox>
     </>
   );

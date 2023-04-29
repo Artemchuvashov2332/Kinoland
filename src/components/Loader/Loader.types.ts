@@ -6,12 +6,9 @@ interface ILoader {
   children?: React.ReactNode;
 }
 
-export interface ILoaderProgres extends ILoader {
-  typeLoader?: 'progress';
-  props?: CircularProgressProps;
-}
+export type TypeLoader = 'progress' | 'sketeton';
 
-export interface ILoaderSkeleton extends ILoader {
-  typeLoader?: 'sketeton';
-  props?: SkeletonProps;
-}
+export type ILoaderProps<T extends TypeLoader> = ILoader & {
+  typeLoader?: T;
+  props?: T extends 'progress' ? CircularProgressProps : SkeletonProps;
+};
