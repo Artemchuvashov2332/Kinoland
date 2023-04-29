@@ -38,5 +38,7 @@ export interface IFilmsByCategory {
 type ITopFilmEntityData = Omit<IFilmsDataEntity, 'type'>;
 export interface ITopFilmEntity {
   category: string;
-  data: ITopFilmEntityData;
+  data: ITopFilmEntityData & {
+    countries: string;
+  };
 }

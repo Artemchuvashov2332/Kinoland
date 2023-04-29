@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Stack, styled } from '@mui/material';
+import { Box, Button, ButtonGroup, ListItem, Stack, styled } from '@mui/material';
 
 export const StyledFilterBar = styled(ButtonGroup)({
   width: '50%',
@@ -14,10 +14,10 @@ export const StyledFilterBar = styled(ButtonGroup)({
   },
   '&:hover .filter-menu': {
     top: '100%',
-    height: '400px',
+    height: 'auto',
     visibility: 'visible',
     opacity: 1,
-    backgroundColor: 'slategray',
+    backgroundColor: '#3c3c40',
     zIndex: '10',
   },
 });
@@ -44,5 +44,14 @@ export const StyledFilterMenu = styled(Stack)({
   borderBottomRightRadius: '20px',
   transition: 'all .2s ease',
   padding: '10px',
-  cursor: 'pointer',
+});
+
+export const StyledListCategory = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+});
+
+export const StyledListItemCategory = styled(ListItem)({
+  width: 'auto',
 });

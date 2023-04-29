@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, styled } from '@mui/material';
+import { Box, Button, Stack, styled } from '@mui/material';
 
 export const StyledBannerContainer = styled(Box)({
   height: '100%',
@@ -16,31 +16,12 @@ export const StyledBannerContainer = styled(Box)({
 export const StyledDescriptionStack = styled(Stack)({
   gridColumn: 'span 6',
   width: '80%',
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
   margin: '10px 0',
 });
 
-export const StyledInfoTypography = styled(Typography)({
-  width: '100%',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
-export const StyledDescription = styled(Box)({
-  height: '50%',
-  overflow: 'hidden',
-  marginBottom: '15px',
-  position: 'relative',
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    left: '0px',
-    right: '0px',
-    bottom: '0px',
-    height: '55px',
-    background: 'linear-gradient(180deg, transparent, rgb(39 39 42) 50%)',
-  },
+export const StyledInfoText = styled('span')({
+  marginLeft: '15px',
 });
 
 export const StyledLinkButton = styled(Button)({

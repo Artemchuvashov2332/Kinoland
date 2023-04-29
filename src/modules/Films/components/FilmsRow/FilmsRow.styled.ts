@@ -4,7 +4,7 @@ export const StyledBoxItem = styled(Box)({
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
-  overflowX: 'auto',
+  overflowX: 'scroll',
   overflowY: 'hidden',
   '&::-webkit-scrollbar': {
     height: '10px',
@@ -28,4 +28,6 @@ export const StyledCategoryName = styled(Typography)({
 export const StyledListRow = styled(List)({
   display: 'flex',
   flexDirection: 'row',
+  paddingTop: '8px',
+  paddingBottom: '24px',
 });

@@ -162,6 +162,7 @@ export const TopFilmsMock: ITopFilmEntity[] = [
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/f9cf62b9-074d-4022-8e6b-8683c8f18318/300x450',
       rating: 7.4,
+      countries: 'Россия',
       year: 2022,
       description:
         'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
@@ -175,6 +176,7 @@ export const TopFilmsMock: ITopFilmEntity[] = [
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
       rating: 7.4,
+      countries: 'Россия',
       year: 2020,
       description:
         'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
@@ -188,6 +190,7 @@ export const TopFilmsMock: ITopFilmEntity[] = [
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
       rating: 7.4,
+      countries: 'Россия',
       year: 2020,
       description:
         'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
@@ -201,6 +204,7 @@ export const TopFilmsMock: ITopFilmEntity[] = [
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
       rating: 7.4,
+      countries: 'Россия',
       year: 2020,
       description:
         'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
@@ -214,6 +218,7 @@ export const TopFilmsMock: ITopFilmEntity[] = [
       posterUrl:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/a2a3d9d6-7e5a-4e0c-8602-66e29811be23/600x900',
       rating: 7.4,
+      countries: 'Россия',
       year: 2020,
       description:
         'Lorem ipsum dolor sit Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi, expedita, quaerat placeat nemo dolorem accusamus atque recusandae ipsam est vitae rerum obcaecati commodi nesciunt facere neque perspiciatis voluptates aut beatae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid deserunt quos dolorum fugiat distinctio, asperiores quas unde, dignissimos commodi quaerat odit. Veniam, eum recusandae odit pariatur inventore consequuntur unde cum.',
