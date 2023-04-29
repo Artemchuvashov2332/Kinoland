@@ -1,6 +1,7 @@
 import React, { MouseEvent, useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
+import { useNavigate } from 'react-router-dom';
 import { filmStoreInstance } from '../../store/index';
 import {
   StyledFilterBar,
@@ -9,14 +10,20 @@ import {
   StyledListCategory,
   StyledListItemCategory,
 } from './SearchFilter.styled';
-import { SEARCH_FILTER } from 'constants/index';
+import { PATH_LIST, SEARCH_FILTER } from 'constants/index';
 import { SearchFilmTypes } from 'domains/index';
 import { YearsFilmMock } from '__mocks__/Films.mock';
 
 const SearchFilterProto = () => {
   const [selectType, setSelectType] = useState<SearchFilmTypes>(SEARCH_FILTER.Films);
+  const navigate = useNavigate();
+
   const mouseEnterHandler = (event: MouseEvent<HTMLButtonElement> & { target: HTMLButtonElement }) =>
     setSelectType(event.target.textContent as SearchFilmTypes);
+
+  const onClickHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
+    navigate(`${PATH_LIST.SEARCH_ROUTE}?type=${selectType}&category=${event.target.textContent}`);
+  };
 
   return (
     <StyledFilterBar>
@@ -29,7 +36,7 @@ const SearchFilterProto = () => {
         <Typography component={'h1'} variant={'h5'} padding={'2px 16px'}>
           {selectType}
         </Typography>
-        <Stack direction={'row'}>
+        <Stack direction={'row'} onClick={onClickHandler}>
           <Box width={'70%'}>
             <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
               Жанры
