@@ -13,4 +13,5 @@ export interface ISearchParamsEntity {
   };
   year?: number;
   keyword?: string;
+  page?: number;
 }

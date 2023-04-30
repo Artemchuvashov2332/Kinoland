@@ -1,18 +1,18 @@
-import { IFilmsEntity } from 'domains/index';
+import { IFilmsDataEntity } from 'domains/index';
 
 const filmIdlist: string[] = [];
 
-const filterFilm = (film: IFilmsEntity): boolean => {
-  if (filmIdlist.includes(film.data.id)) {
+const filterFilm = (film: IFilmsDataEntity): boolean => {
+  if (filmIdlist.includes(film.id)) {
     return false;
   } else {
-    filmIdlist.push(film.data.id);
+    filmIdlist.push(film.id);
     return true;
   }
 };
 
-export const deleteDuplicateFilms = (films: IFilmsEntity[]): IFilmsEntity[] => {
-  const noDuplicateFilms: IFilmsEntity[] = films.filter(filterFilm);
+export const deleteDuplicateFilms = (films: IFilmsDataEntity[]): IFilmsDataEntity[] => {
+  const noDuplicateFilms: IFilmsDataEntity[] = films.filter(filterFilm);
 
   filmIdlist.length = 0;
 

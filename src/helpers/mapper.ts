@@ -59,29 +59,31 @@ export const mapToInternalFilters = (filters: GetFiltersResponse): IFilmsFilter 
 };
 
 export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilmsByFilterParams => {
-  const { type, categories, countries, year, keyword } = searchParams;
+  const { type, categories, countries, year, keyword, page } = searchParams;
 
   let filmType: GetFilmsByFilterParams['type'];
+  let filmCategory: number | undefined = undefined;
 
   if (type === 'Фильмы') filmType = 'FILM';
   if (type === 'Сериалы') filmType = 'TV_SERIES';
-  if (type === 'Мультфильмы') categories ? (categories.id = 15) : undefined; //чето придумать
-  if (type === 'Аниме') categories ? (categories.id = 25) : undefined; //чето придумать
+  if (type === 'Мультфильмы') filmCategory = 18; //чето придумать
+  if (type === 'Аниме') filmCategory = 24; //чето придумать
 
   const params: GetFilmsByFilterParams = {
     countries: countries ? [countries.id] : undefined,
-    genres: categories ? categories.id : undefined,
+    genres: categories ? categories.id : filmCategory,
     yearFrom: year || undefined,
     yearTo: year || undefined,
     type: filmType || undefined,
     keyword: keyword || undefined,
+    page,
   };
 
   return params;
 };
 
-export const mapToInternalSearch = (films: GetFilmByFilterResponse): IFilmsEntity[] => {
-  const filmsArr: IFilmsEntity[] = [];
+export const mapToInternalSearch = (films: GetFilmByFilterResponse): IFilmsDataEntity[] => {
+  const filmsArr: IFilmsDataEntity[] = [];
 
   films.items.forEach((film) => {
     if (film.genres?.some((genre) => !isGoodGenre(genre.genre))) return;
@@ -102,15 +104,12 @@ export const mapToInternalSearch = (films: GetFilmByFilterResponse): IFilmsEntit
       }
 
       filmsArr.push({
-        category: category,
-        data: {
-          id: film.kinopoiskId.toString(),
-          name: film.nameRu ?? film.nameEn ?? film.nameOriginal ?? 'Неизвестно',
-          posterUrl: film.posterUrl || film.posterUrlPreview || '',
-          type: filmType,
-          year: film.year || 'Неизвестно',
-          rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
-        },
+        id: film.kinopoiskId.toString(),
+        name: film.nameRu ?? film.nameEn ?? film.nameOriginal ?? 'Неизвестно',
+        posterUrl: film.posterUrl || film.posterUrlPreview || '',
+        type: filmType,
+        year: film.year || 'Неизвестно',
+        rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
       });
     }
   });

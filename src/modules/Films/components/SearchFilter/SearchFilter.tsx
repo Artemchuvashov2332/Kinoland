@@ -10,7 +10,7 @@ import {
   StyledListCategory,
   StyledListItemCategory,
 } from './SearchFilter.styled';
-import { PATH_LIST, SEARCH_FILTER } from 'constants/index';
+import { PATH_LIST, SEARCH_FILM_URL_PARAMS, SEARCH_FILTER } from 'constants/index';
 import { SearchFilmTypes } from 'domains/index';
 import { YearsFilmMock } from '__mocks__/Films.mock';
 
@@ -21,8 +21,16 @@ const SearchFilterProto = () => {
   const mouseEnterHandler = (event: MouseEvent<HTMLButtonElement> & { target: HTMLButtonElement }) =>
     setSelectType(event.target.textContent as SearchFilmTypes);
 
-  const onClickHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
-    navigate(`${PATH_LIST.SEARCH_ROUTE}?type=${selectType}&category=${event.target.textContent}`);
+  const onClickCategoryHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
+    navigate(
+      `${PATH_LIST.SEARCH_ROUTE}?${SEARCH_FILM_URL_PARAMS.TYPE}=${selectType}&${SEARCH_FILM_URL_PARAMS.CATEGORY}=${event.target.dataset.id}`
+    );
+  };
+
+  const onClickYearHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
+    navigate(
+      `${PATH_LIST.SEARCH_ROUTE}?${SEARCH_FILM_URL_PARAMS.TYPE}=${selectType}&${SEARCH_FILM_URL_PARAMS.YEAR}=${event.target.dataset.id}`
+    );
   };
 
   return (
@@ -36,15 +44,15 @@ const SearchFilterProto = () => {
         <Typography component={'h1'} variant={'h5'} padding={'2px 16px'}>
           {selectType}
         </Typography>
-        <Stack direction={'row'} onClick={onClickHandler}>
+        <Stack direction={'row'}>
           <Box width={'70%'}>
             <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
               Жанры
             </Typography>
-            <StyledListCategory>
+            <StyledListCategory onClick={onClickCategoryHandler}>
               {filmStoreInstance.genres.map((genre) => (
                 <StyledListItemCategory key={genre.id}>
-                  <Button variant="text" color="inherit">
+                  <Button variant="text" color="inherit" data-id={genre.id}>
                     {genre.genre}
                   </Button>
                 </StyledListItemCategory>
@@ -55,10 +63,10 @@ const SearchFilterProto = () => {
             <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
               По годам
             </Typography>
-            <StyledListCategory>
+            <StyledListCategory onClick={onClickYearHandler}>
               {YearsFilmMock.map((year) => (
                 <StyledListItemCategory key={year}>
-                  <Button variant="text" color="inherit">
+                  <Button variant="text" color="inherit" data-id={year}>
                     {year}
                   </Button>
                 </StyledListItemCategory>

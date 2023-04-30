@@ -32,6 +32,12 @@ export interface IFilmsEntity {
 
 export interface IFilmsByCategory {
   category: string;
+  maxPage: number;
+  items: IFilmsDataEntity[];
+}
+
+export interface ISearchFilms {
+  maxPage: number;
   items: IFilmsDataEntity[];
 }
 

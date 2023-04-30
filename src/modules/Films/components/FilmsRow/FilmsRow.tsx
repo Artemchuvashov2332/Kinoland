@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { ListItem } from '@mui/material';
-import { FilmsCard } from '../index';
 import { StyledListRow, StyledBoxItem, StyledCategoryName } from './FilmsRow.styled';
 import { IFilmsRowProps } from './FilmsRow.types';
+import { FilmsCard } from 'components/index';
 
 const FilmsRowProto = ({ filmsList, nameCategory }: IFilmsRowProps) => {
   return (

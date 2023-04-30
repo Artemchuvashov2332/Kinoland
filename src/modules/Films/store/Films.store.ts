@@ -1,25 +1,16 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { IFilmsByCategory, IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity } from 'domains/index';
+import { IFilmsByCategory, IFilmsFilter, ITopFilmEntity } from 'domains/index';
 import {
   fiveRandonGenre,
   mapToExternalSearch,
   mapToInternalFilms,
   mapToInternalFilters,
   mapToInternalTopFilms,
-  deleteDuplicateFilms,
   delay,
-  mapToInternalSearch,
 } from 'helpers/index';
 import { filmAgentInstance } from 'http/agent';
 
-type PrivateField =
-  | '_countries'
-  | '_genres'
-  | '_searchFilms'
-  | '_topFilms'
-  | '_filmsByCategory'
-  | '_isError'
-  | '_isLoader';
+type PrivateField = '_countries' | '_genres' | '_topFilms' | '_filmsByCategory' | '_isError' | '_isLoader';
 
 class FilmStore {
   constructor() {
@@ -27,14 +18,12 @@ class FilmStore {
       _countries: observable,
       _genres: observable,
       _filmsByCategory: observable,
-      _searchFilms: observable,
       _topFilms: observable,
       _isError: observable,
       _isLoader: observable,
 
       countries: computed,
       genres: computed,
-      searchFilms: computed,
       topFilms: computed,
       filmsByCategory: computed,
       isError: computed,
@@ -42,14 +31,12 @@ class FilmStore {
 
       loarRandomFilm: action,
       loadTopFilms: action,
-      loadFilmsByParams: action,
       loadGenresCountries: action,
     });
   }
 
   private _countries: IFilmsFilter['countries'] = [];
   private _genres: IFilmsFilter['category'] = [];
-  private _searchFilms: IFilmsEntity[] = [];
   private _topFilms: ITopFilmEntity[] = [];
   private _filmsByCategory: IFilmsByCategory[] = [];
   private _isError = false;
@@ -61,10 +48,6 @@ class FilmStore {
 
   get genres() {
     return this._genres;
-  }
-
-  get searchFilms() {
-    return this._searchFilms;
   }
 
   get topFilms() {
@@ -97,31 +80,13 @@ class FilmStore {
       for (const randonGenre of randonGenres) {
         const externalParams = mapToExternalSearch({ categories: { id: randonGenre.id } });
         const res = await filmAgentInstance.getFilmsByFilter(externalParams);
+        const internalParams = mapToInternalFilms(res);
         this._filmsByCategory.push({
           category: randonGenre.genre,
-          items: mapToInternalFilms(res),
+          items: internalParams,
+          maxPage: res.totalPages,
         });
       }
-    } catch (error) {
-      this._isError = true;
-    } finally {
-      this._isLoader = false;
-    }
-  }
-
-  async loadFilmsByParams(params: ISearchParamsEntity) {
-    try {
-      this._isLoader = true;
-      if (!this._genres.length || !this._countries.length) {
-        await this.loadGenresCountries();
-      }
-
-      await delay(1000);
-
-      const externalParams = mapToExternalSearch(params);
-      const res = await filmAgentInstance.getFilmsByFilter(externalParams);
-      this._searchFilms.push(...mapToInternalSearch(res));
-      this._searchFilms = deleteDuplicateFilms(this._searchFilms);
     } catch (error) {
       this._isError = true;
     } finally {
