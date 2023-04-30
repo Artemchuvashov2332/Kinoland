@@ -1,7 +1,7 @@
 export interface IFilmsType {
   Films: 'Фильмы';
   Series: 'Сериалы';
-  Cartoon: 'Мультфильмы';
+  Cartoon: 'Мультфильм';
   Anime: 'Аниме';
 }
 

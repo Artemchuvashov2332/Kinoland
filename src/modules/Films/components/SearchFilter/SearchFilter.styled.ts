@@ -1,6 +1,12 @@
 import { Box, Button, ButtonGroup, ListItem, Stack, styled } from '@mui/material';
 
-export const StyledFilterBar = styled(ButtonGroup)({
+interface IStyledFilterMenuProps {
+  isOpen: boolean;
+}
+
+export const StyledFilterBar = styled(ButtonGroup, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})<IStyledFilterMenuProps>(({ isOpen }) => ({
   width: '50%',
   backgroundColor: 'rgb(39 39 42)',
   borderRadius: '20px',
@@ -9,28 +15,20 @@ export const StyledFilterBar = styled(ButtonGroup)({
   transition: 'all .3s ease',
 
   '&:hover': {
-    borderBottomLeftRadius: '0px',
-    borderBottomRightRadius: '0px',
+    ...(isOpen && {
+      borderBottomLeftRadius: '0px',
+      borderBottomRightRadius: '0px',
+    }),
   },
-  '&:hover .filter-menu': {
-    top: '100%',
-    height: 'auto',
-    visibility: 'visible',
-    opacity: 1,
-    backgroundColor: '#3c3c40',
-    zIndex: '10',
-  },
-});
+}));
 
 export const StyledFilterButton = styled(Button)({
   flexGrow: 1,
-  '&:hover': {
-    borderBottomLeftRadius: '0px',
-    borderBottomRightRadius: '0px',
-  },
 });
 
-export const StyledFilterMenu = styled(Stack)({
+export const StyledFilterMenu = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})<IStyledFilterMenuProps>(({ isOpen }) => ({
   width: '100%',
   height: '0px',
   fontSize: '1rem',
@@ -44,7 +42,15 @@ export const StyledFilterMenu = styled(Stack)({
   borderBottomRightRadius: '20px',
   transition: 'all .2s ease',
   padding: '10px',
-});
+  ...(isOpen && {
+    top: '100%',
+    height: 'auto',
+    visibility: 'visible',
+    opacity: 1,
+    backgroundColor: '#3c3c40',
+    zIndex: '10',
+  }),
+}));
 
 export const StyledListCategory = styled(Box)({
   display: 'flex',

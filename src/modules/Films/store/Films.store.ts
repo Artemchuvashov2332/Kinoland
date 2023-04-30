@@ -6,7 +6,6 @@ import {
   mapToInternalFilms,
   mapToInternalFilters,
   mapToInternalTopFilms,
-  delay,
 } from 'helpers/index';
 import { filmAgentInstance } from 'http/agent';
 
@@ -74,7 +73,6 @@ class FilmStore {
         await this.loadGenresCountries();
       }
 
-      await delay(1000);
       const randonGenres = fiveRandonGenre(this._genres);
 
       for (const randonGenre of randonGenres) {
@@ -101,8 +99,6 @@ class FilmStore {
       const res = await filmAgentInstance.getTopFilms({ type: 'TOP_100_POPULAR_FILMS', page: 1 });
       const topFilms = mapToInternalTopFilms(res);
 
-      await delay(1000);
-
       this._topFilms = topFilms;
     } catch (error) {
       this._isError = true;
@@ -117,8 +113,6 @@ class FilmStore {
 
       const res = await filmAgentInstance.getFilters();
       const filters = mapToInternalFilters(res);
-
-      await delay(1000);
 
       this._genres = filters.category;
       this._countries = filters.countries;

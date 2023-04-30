@@ -15,11 +15,19 @@ import { SearchFilmTypes } from 'domains/index';
 import { YearsFilmMock } from '__mocks__/Films.mock';
 
 const SearchFilterProto = () => {
-  const [selectType, setSelectType] = useState<SearchFilmTypes>(SEARCH_FILTER.Films);
+  const [selectType, setSelectType] = useState<SearchFilmTypes | ''>('');
   const navigate = useNavigate();
 
   const mouseEnterHandler = (event: MouseEvent<HTMLButtonElement> & { target: HTMLButtonElement }) =>
     setSelectType(event.target.textContent as SearchFilmTypes);
+
+  const mouseLeaveHandler = () => {
+    setSelectType('');
+  };
+
+  const onClickHandler = () => {
+    navigate(`${PATH_LIST.SEARCH_ROUTE}?${SEARCH_FILM_URL_PARAMS.TYPE}=${selectType}`);
+  };
 
   const onClickCategoryHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
     navigate(
@@ -34,13 +42,20 @@ const SearchFilterProto = () => {
   };
 
   return (
-    <StyledFilterBar>
+    <StyledFilterBar isOpen={selectType === SEARCH_FILTER.Films || selectType === SEARCH_FILTER.Series ? true : false}>
       {Object.values(SEARCH_FILTER).map((type) => (
-        <StyledFilterButton key={type} variant="text" color="inherit" onMouseEnter={mouseEnterHandler}>
+        <StyledFilterButton
+          key={type}
+          variant="text"
+          color="inherit"
+          onClick={onClickHandler}
+          onMouseOver={mouseEnterHandler}>
           {type}
         </StyledFilterButton>
       ))}
-      <StyledFilterMenu className={'filter-menu'}>
+      <StyledFilterMenu
+        isOpen={selectType === SEARCH_FILTER.Films || selectType === SEARCH_FILTER.Series ? true : false}
+        onMouseLeave={mouseLeaveHandler}>
         <Typography component={'h1'} variant={'h5'} padding={'2px 16px'}>
           {selectType}
         </Typography>
@@ -50,13 +65,20 @@ const SearchFilterProto = () => {
               Жанры
             </Typography>
             <StyledListCategory onClick={onClickCategoryHandler}>
-              {filmStoreInstance.genres.map((genre) => (
-                <StyledListItemCategory key={genre.id}>
-                  <Button variant="text" color="inherit" data-id={genre.id}>
-                    {genre.genre}
-                  </Button>
-                </StyledListItemCategory>
-              ))}
+              {filmStoreInstance.genres.map((genre) => {
+                if (
+                  genre.genre.toLocaleLowerCase() !== SEARCH_FILTER.Cartoon.toLocaleLowerCase() &&
+                  genre.genre.toLocaleLowerCase() !== SEARCH_FILTER.Anime.toLocaleLowerCase()
+                ) {
+                  return (
+                    <StyledListItemCategory key={genre.id}>
+                      <Button variant="text" color="inherit" data-id={genre.id}>
+                        {genre.genre}
+                      </Button>
+                    </StyledListItemCategory>
+                  );
+                }
+              })}
             </StyledListCategory>
           </Box>
           <Box width={'30%'}>

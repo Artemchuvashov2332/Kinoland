@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 import { useSearchParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
@@ -9,11 +9,10 @@ import { IFilmsType, ISearchParamsEntity } from 'domains/index';
 import { SEARCH_FILM_URL_PARAMS } from 'constants/index';
 import { Loader } from 'components/index';
 
-let isFetch = false;
-let searchPage = 1;
-
 const SearchFilmsListProto = () => {
   const [searchParams] = useSearchParams();
+  const isFetchRef = useRef(false);
+  const searchPageRef = useRef(1);
 
   const searchType = searchParams.get(SEARCH_FILM_URL_PARAMS.TYPE);
   const searchCategories = searchParams.get(SEARCH_FILM_URL_PARAMS.CATEGORY);
@@ -29,23 +28,23 @@ const SearchFilmsListProto = () => {
 
   useEffect(() => {
     searchFilmsStoreInstance.clearSearchFilms();
-    searchPage = 1;
-    searchFilmsStoreInstance.loadFilmsByParams({ ...params, page: searchPage });
+    searchPageRef.current = 1;
+    searchFilmsStoreInstance.loadFilmsByParams({ ...params, page: searchPageRef.current });
   }, []);
 
   const handleScroll = () => {
-    if (!isFetch || searchPage >= searchFilmsStoreInstance.searchFilms.maxPage) return;
+    if (!isFetchRef.current || searchPageRef.current >= searchFilmsStoreInstance.searchFilms.maxPage) return;
 
     if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
-      searchPage += 1;
-      searchFilmsStoreInstance.loadFilmsByParams({ ...params, page: searchPage });
-      isFetch = false;
+      searchPageRef.current += 1;
+      searchFilmsStoreInstance.loadFilmsByParams({ ...params, page: searchPageRef.current });
+      isFetchRef.current = false;
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    isFetch = true;
+    isFetchRef.current = true;
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };

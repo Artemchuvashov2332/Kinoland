@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 import { FilmsRow } from '../index';
 import { filmStoreInstance } from '../../store/index';
 import { StyledLoaderBox } from './FilmsList.styled';
 import { Loader } from 'components/index';
 
-let isFetch = false;
-
 const FilmsListProto = () => {
+  const isFetchRes = useRef(false);
+
   useEffect(() => {
     filmStoreInstance.loarRandomFilm();
   }, []);
 
   const handleScroll = () => {
-    if (!isFetch) return;
+    if (!isFetchRes.current) return;
 
     if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
       filmStoreInstance.loarRandomFilm();
-      isFetch = false;
+      isFetchRes.current = false;
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    isFetch = true;
+    isFetchRes.current = true;
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };

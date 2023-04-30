@@ -66,7 +66,7 @@ export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilms
 
   if (type === 'Фильмы') filmType = 'FILM';
   if (type === 'Сериалы') filmType = 'TV_SERIES';
-  if (type === 'Мультфильмы') filmCategory = 18; //чето придумать
+  if (type === 'Мультфильм') filmCategory = 18; //чето придумать
   if (type === 'Аниме') filmCategory = 24; //чето придумать
 
   const params: GetFilmsByFilterParams = {
