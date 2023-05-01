@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { IFilmsFilter, ISearchFilms, ISearchParamsEntity } from 'domains/index';
-import { mapToExternalSearch, deleteDuplicateFilms, mapToInternalSearch, mapToInternalFilters } from 'helpers/index';
+import { mapToExternalSearch, deleteDuplicateFilms, mapToInternalFilters, mapToInternalFilms } from 'helpers/index';
 import { filmAgentInstance } from 'http/index';
 
 type PrivateFields = '_countries' | '_genres' | '_searchFilms' | '_isError' | '_isLoader';
@@ -73,7 +73,7 @@ class SearchFilmsStore {
       const res = await filmAgentInstance.getFilmsByFilter(externalParams);
       this._searchFilms = {
         maxPage: res.totalPages,
-        items: [...this._searchFilms.items, ...mapToInternalSearch(res)],
+        items: [...this._searchFilms.items, ...mapToInternalFilms(res)],
       };
       this._searchFilms.items = deleteDuplicateFilms(this._searchFilms.items);
     } catch (error) {

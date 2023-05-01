@@ -3,10 +3,10 @@ import { Box, Typography, styled } from '@mui/material';
 export const FilmCardBox = styled(Box)({
   position: 'relative',
   cursor: 'pointer',
-  transition: 'all .5s ease',
+  transition: 'all .3s ease',
   width: '180px',
   '&:hover': {
-    transform: 'scale(1.2)',
+    transform: 'scale(1.15)',
   },
 });
 

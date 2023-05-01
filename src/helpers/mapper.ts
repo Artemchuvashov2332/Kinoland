@@ -62,59 +62,28 @@ export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilms
   const { type, categories, countries, year, keyword, page } = searchParams;
 
   let filmType: GetFilmsByFilterParams['type'];
-  let filmCategory: number | undefined = undefined;
+  let filmOrderBy: GetFilmsByFilterParams['order'] = 'NUM_VOTE';
 
-  if (type === 'Фильмы') filmType = 'FILM';
-  if (type === 'Сериалы') filmType = 'TV_SERIES';
-  if (type === 'Мультфильм') filmCategory = 18; //чето придумать
-  if (type === 'Аниме') filmCategory = 24; //чето придумать
+  if (type === SEARCH_FILTER.Films) filmType = 'FILM';
+  if (type === SEARCH_FILTER.Series) filmType = 'TV_SERIES';
+  if (type === SEARCH_FILTER.TV_Show) filmType = 'TV_SHOW';
+  if (type === SEARCH_FILTER.Best) {
+    filmType = 'ALL';
+    filmOrderBy = 'RATING';
+  }
 
   const params: GetFilmsByFilterParams = {
     countries: countries ? [countries.id] : undefined,
-    genres: categories ? categories.id : filmCategory,
+    genres: categories ? categories.id : undefined,
     yearFrom: year || undefined,
     yearTo: year || undefined,
     type: filmType || undefined,
     keyword: keyword || undefined,
+    order: filmOrderBy,
     page,
   };
 
   return params;
-};
-
-export const mapToInternalSearch = (films: GetFilmByFilterResponse): IFilmsDataEntity[] => {
-  const filmsArr: IFilmsDataEntity[] = [];
-
-  films.items.forEach((film) => {
-    if (film.genres?.some((genre) => !isGoodGenre(genre.genre))) return;
-
-    if (film.kinopoiskId) {
-      let category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
-      let filmType: IFilmsEntity['data']['type'] = SEARCH_FILTER.Films;
-
-      if (film.type === 'TV_SERIES') filmType = SEARCH_FILTER.Series;
-      if (category.includes(SEARCH_FILTER.Cartoon)) {
-        filmType = SEARCH_FILTER.Cartoon;
-        category = [SEARCH_FILTER.Cartoon];
-      }
-
-      if (category.includes(SEARCH_FILTER.Anime)) {
-        filmType = SEARCH_FILTER.Anime;
-        category = [SEARCH_FILTER.Anime];
-      }
-
-      filmsArr.push({
-        id: film.kinopoiskId.toString(),
-        name: film.nameRu ?? film.nameEn ?? film.nameOriginal ?? 'Неизвестно',
-        posterUrl: film.posterUrl || film.posterUrlPreview || '',
-        type: filmType,
-        year: film.year || 'Неизвестно',
-        rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
-      });
-    }
-  });
-
-  return filmsArr;
 };
 
 export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsDataEntity[] => {
@@ -124,19 +93,11 @@ export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsDataEn
     if (film.genres?.some((genre) => !isGoodGenre(genre.genre))) return;
 
     if (film.kinopoiskId) {
-      let category: IFilmsEntity['category'] = film.genres?.map((genre) => genre.genre) || ['Неизвестно'];
-      let filmType: IFilmsEntity['data']['type'] = SEARCH_FILTER.Films;
+      let filmType: IFilmsEntity['data']['type'] = 'Неизвестно';
 
+      if (film.type === 'FILM') filmType = SEARCH_FILTER.Films;
       if (film.type === 'TV_SERIES') filmType = SEARCH_FILTER.Series;
-      if (category.includes(SEARCH_FILTER.Cartoon)) {
-        filmType = SEARCH_FILTER.Cartoon;
-        category = [SEARCH_FILTER.Cartoon];
-      }
-
-      if (category.includes(SEARCH_FILTER.Anime)) {
-        filmType = SEARCH_FILTER.Anime;
-        category = [SEARCH_FILTER.Anime];
-      }
+      if (film.type === 'TV_SHOW') filmType = SEARCH_FILTER.TV_Show;
 
       filmsArr.push({
         id: film.kinopoiskId.toString(),

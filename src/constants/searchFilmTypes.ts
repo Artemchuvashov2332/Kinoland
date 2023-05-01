@@ -3,6 +3,6 @@ import { IFilmsType } from 'domains/index';
 export const SEARCH_FILTER: IFilmsType = {
   Films: 'Фильмы',
   Series: 'Сериалы',
-  Cartoon: 'Мультфильм',
-  Anime: 'Аниме',
+  TV_Show: 'ТВ-шоу',
+  Best: 'Лучшее',
 };

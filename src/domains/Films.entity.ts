@@ -1,8 +1,8 @@
 export interface IFilmsType {
   Films: 'Фильмы';
   Series: 'Сериалы';
-  Cartoon: 'Мультфильм';
-  Anime: 'Аниме';
+  TV_Show: 'ТВ-шоу';
+  Best: 'Лучшее';
 }
 
 export interface IFilmsFilter {
@@ -20,7 +20,7 @@ export interface IFilmsDataEntity {
   id: string;
   name: string;
   posterUrl: string;
-  type: IFilmsType[keyof IFilmsType];
+  type: IFilmsType[keyof IFilmsType] | 'Неизвестно';
   year: number | 'Неизвестно';
   rating: number | 'Неизвестно';
   description?: string;

@@ -1,16 +1,15 @@
-import { Box, Button, ButtonGroup, ListItem, Stack, styled } from '@mui/material';
+import { Box, ListItem, Stack, styled } from '@mui/material';
 
 interface IStyledFilterMenuProps {
   isOpen: boolean;
 }
 
-export const StyledFilterBar = styled(ButtonGroup, {
+export const StyledFilterBar = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isOpen',
 })<IStyledFilterMenuProps>(({ isOpen }) => ({
   width: '50%',
   backgroundColor: 'rgb(39 39 42)',
   borderRadius: '20px',
-  gap: '10px',
   position: 'relative',
   transition: 'all .3s ease',
 
@@ -21,10 +20,6 @@ export const StyledFilterBar = styled(ButtonGroup, {
     }),
   },
 }));
-
-export const StyledFilterButton = styled(Button)({
-  flexGrow: 1,
-});
 
 export const StyledFilterMenu = styled(Stack, {
   shouldForwardProp: (prop) => prop !== 'isOpen',
