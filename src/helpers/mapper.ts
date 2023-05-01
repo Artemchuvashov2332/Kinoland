@@ -73,7 +73,7 @@ export const mapToExternalSearch = (searchParams: ISearchParamsEntity): GetFilms
   }
 
   const params: GetFilmsByFilterParams = {
-    countries: countries ? [countries.id] : undefined,
+    countries: countries ? countries.id : undefined,
     genres: categories ? categories.id : undefined,
     yearFrom: year || undefined,
     yearTo: year || undefined,

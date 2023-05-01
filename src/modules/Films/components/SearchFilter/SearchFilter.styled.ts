@@ -1,4 +1,4 @@
-import { Box, ListItem, Stack, styled } from '@mui/material';
+import { Box, Button, Stack, styled } from '@mui/material';
 
 interface IStyledFilterMenuProps {
   isOpen: boolean;
@@ -7,7 +7,7 @@ interface IStyledFilterMenuProps {
 export const StyledFilterBar = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isOpen',
 })<IStyledFilterMenuProps>(({ isOpen }) => ({
-  width: '50%',
+  width: '70%',
   backgroundColor: 'rgb(39 39 42)',
   borderRadius: '20px',
   position: 'relative',
@@ -53,6 +53,18 @@ export const StyledListCategory = styled(Box)({
   flexWrap: 'wrap',
 });
 
-export const StyledListItemCategory = styled(ListItem)({
+export const StyledListItemCategory = styled(Box)({
   width: 'auto',
+  padding: '4px 8px',
+});
+
+export const StyledButton = styled(Button)({
+  color: 'inherit',
+  minWidth: 'auto',
+  padding: '4px 8px',
+  fontWeight: '500',
+  fontSize: '0.8125rem',
+  lineHeight: '1.75',
+  letterSpacing: '0.02857em',
+  textTransform: 'uppercase',
 });

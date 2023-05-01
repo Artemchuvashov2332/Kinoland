@@ -13,9 +13,10 @@ export type GetFiltersResponse =
 
 type FilmsFilterGenre = {
   genres: number | undefined;
+  countries: number | undefined;
 };
 type FilterParams = paths['/api/v2.2/films']['get']['parameters']['query'];
 
-export type GetFilmsByFilterParams = Omit<FilterParams, 'genres'> & FilmsFilterGenre;
+export type GetFilmsByFilterParams = Omit<FilterParams, 'genres' | 'countries'> & FilmsFilterGenre;
 export type GetFilmByFilterResponse =
   paths['/api/v2.2/films']['get']['responses']['200']['content']['application/json'];

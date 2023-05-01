@@ -9,7 +9,7 @@ export interface ISearchParamsEntity {
   };
   countries?: {
     id: number;
-    country: string;
+    country?: string;
   };
   year?: number;
   keyword?: string;

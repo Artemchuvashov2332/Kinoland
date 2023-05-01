@@ -16,12 +16,14 @@ const SearchFilmsListProto = () => {
 
   const searchType = searchParams.get(SEARCH_FILM_URL_PARAMS.TYPE);
   const searchCategories = searchParams.get(SEARCH_FILM_URL_PARAMS.CATEGORY);
+  const searchCountries = searchParams.get(SEARCH_FILM_URL_PARAMS.COUNTRY);
   const searchYear = searchParams.get(SEARCH_FILM_URL_PARAMS.YEAR);
   const searchKeyword = searchParams.get(SEARCH_FILM_URL_PARAMS.KEYWORD);
 
   const params: ISearchParamsEntity = {
     type: searchType ? (searchType as IFilmsType[keyof IFilmsType]) : undefined,
     categories: searchCategories ? { id: Number(searchCategories) } : undefined,
+    countries: searchCountries ? { id: Number(searchCountries) } : undefined,
     year: searchYear ? Number(searchYear) : undefined,
     keyword: searchKeyword ? searchKeyword : undefined,
   };

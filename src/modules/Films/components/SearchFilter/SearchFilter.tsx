@@ -1,10 +1,16 @@
 import React, { MouseEvent, useRef } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import { filmStoreInstance } from '../../store/index';
 import { SearchButtons } from '../index';
-import { StyledFilterBar, StyledFilterMenu, StyledListCategory, StyledListItemCategory } from './SearchFilter.styled';
+import {
+  StyledButton,
+  StyledFilterBar,
+  StyledFilterMenu,
+  StyledListCategory,
+  StyledListItemCategory,
+} from './SearchFilter.styled';
 import { PATH_LIST, SEARCH_FILM_URL_PARAMS } from 'constants/index';
 import { YearsFilmMock } from '__mocks__/Films.mock';
 import { useOpenSearchPanel } from 'src/hooks';
@@ -32,6 +38,12 @@ const SearchFilterProto = () => {
     );
   };
 
+  const onClickCountryHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
+    navigate(
+      `${PATH_LIST.SEARCH_ROUTE}?${SEARCH_FILM_URL_PARAMS.TYPE}=${currType}&${SEARCH_FILM_URL_PARAMS.COUNTRY}=${event.target.dataset.id}`
+    );
+  };
+
   const onClickYearHandler = (event: MouseEvent<HTMLInputElement> & { target: HTMLButtonElement }) => {
     navigate(
       `${PATH_LIST.SEARCH_ROUTE}?${SEARCH_FILM_URL_PARAMS.TYPE}=${currType}&${SEARCH_FILM_URL_PARAMS.YEAR}=${event.target.dataset.id}`
@@ -47,30 +59,52 @@ const SearchFilterProto = () => {
           {currType}
         </Typography>
         <Stack direction={'row'}>
-          <Box width={'70%'}>
+          <Box width={'40%'}>
             <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
               Жанры
             </Typography>
             <StyledListCategory onClick={onClickCategoryHandler}>
               {filmStoreInstance.genres.map((genre) => (
                 <StyledListItemCategory key={genre.id}>
-                  <Button variant="text" color="inherit" data-id={genre.id}>
+                  <StyledButton variant="text" data-id={genre.id}>
                     {genre.genre}
-                  </Button>
+                  </StyledButton>
                 </StyledListItemCategory>
               ))}
             </StyledListCategory>
           </Box>
-          <Box width={'30%'}>
+          <Box width={'40%'}>
+            <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
+              Страны
+            </Typography>
+            <StyledListCategory onClick={onClickCountryHandler}>
+              <StyledListItemCategory key={34}>
+                <StyledButton variant="text" data-id={34}>
+                  {'Россия'}
+                </StyledButton>
+              </StyledListItemCategory>
+              {filmStoreInstance.countries.map((country, index) => {
+                if (index < filmStoreInstance.genres.length)
+                  return (
+                    <StyledListItemCategory key={country.id}>
+                      <StyledButton variant="text" data-id={country.id}>
+                        {country.country}
+                      </StyledButton>
+                    </StyledListItemCategory>
+                  );
+              })}
+            </StyledListCategory>
+          </Box>
+          <Box width={'20%'}>
             <Typography component={'h3'} variant={'h6'} padding={'2px 16px'}>
               По годам
             </Typography>
             <StyledListCategory onClick={onClickYearHandler}>
               {YearsFilmMock.map((year) => (
                 <StyledListItemCategory key={year}>
-                  <Button variant="text" color="inherit" data-id={year}>
+                  <StyledButton variant="text" data-id={year} size="small">
                     {year}
-                  </Button>
+                  </StyledButton>
                 </StyledListItemCategory>
               ))}
             </StyledListCategory>
