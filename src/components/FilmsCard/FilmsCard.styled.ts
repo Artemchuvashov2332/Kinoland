@@ -11,12 +11,14 @@ export const FilmCardBox = styled(Box)({
 });
 
 export const StyledFilmName = styled(Typography)({
+  color: 'white',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
 });
 
 export const FilmRating = styled(Box)({
+  color: 'white',
   position: 'absolute',
   top: '11px',
   right: '11px',

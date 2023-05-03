@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import { searchFilmsStoreInstance } from '../../store/index';
 import { SearchFilmListItem } from '../index';
-import { StyledLoaderBox } from './SearchFilmsList.styled';
+import { StyledLoaderBox, StyledLoaderCenterScreen } from './SearchFilmsList.styled';
 import { IFilmsType, ISearchParamsEntity } from 'domains/index';
 import { SEARCH_FILM_URL_PARAMS } from 'constants/index';
 import { Loader } from 'components/index';
@@ -51,6 +51,17 @@ const SearchFilmsListProto = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [searchFilmsStoreInstance.searchFilms.items.length]);
+
+  if (!searchFilmsStoreInstance.searchFilms.items.length) {
+    return (
+      <StyledLoaderCenterScreen>
+        <Loader
+          isLoading={!searchFilmsStoreInstance.searchFilms.items.length}
+          typeLoader="progress"
+          props={{ color: 'warning' }}></Loader>
+      </StyledLoaderCenterScreen>
+    );
+  }
 
   return (
     <>

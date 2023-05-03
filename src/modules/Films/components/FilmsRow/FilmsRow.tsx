@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
-import { ListItem } from '@mui/material';
+import { FilmItem } from '../index';
 import { StyledListRow, StyledBoxItem, StyledCategoryName } from './FilmsRow.styled';
 import { IFilmsRowProps } from './FilmsRow.types';
-import { FilmsCard } from 'components/index';
 
 const FilmsRowProto = ({ filmsList, nameCategory }: IFilmsRowProps) => {
   return (
@@ -10,9 +9,7 @@ const FilmsRowProto = ({ filmsList, nameCategory }: IFilmsRowProps) => {
       <StyledCategoryName>{nameCategory}</StyledCategoryName>
       <StyledListRow>
         {filmsList.map((film) => (
-          <ListItem key={`${film.id}${nameCategory}`}>
-            <FilmsCard srcPoster={film.posterUrl} rating={film.rating} nameFilm={film.name} />
-          </ListItem>
+          <FilmItem key={`${film.id}${nameCategory}`} film={film} />
         ))}
       </StyledListRow>
     </StyledBoxItem>
