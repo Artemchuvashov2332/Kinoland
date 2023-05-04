@@ -4,7 +4,7 @@ import { SingleFilm } from 'modules/SingleFilm';
 
 export const FilmPage = () => {
   return (
-    <PageContainer>
+    <PageContainer maxWidth={'lg'}>
       <SingleFilm />
     </PageContainer>
   );

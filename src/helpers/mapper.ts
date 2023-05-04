@@ -1,7 +1,20 @@
 import { isGoodGenre } from './index';
 import { SEARCH_FILTER } from 'constants/index';
-import { IFilmsEntity, IFilmsFilter, ISearchParamsEntity, ITopFilmEntity, IFilmsDataEntity } from 'domains/index';
-import { GetFilmByFilterResponse, GetFilmsByFilterParams, GetFiltersResponse, GetTopFilmsResponse } from 'http/model';
+import {
+  IFilmsEntity,
+  IFilmsFilter,
+  ISearchParamsEntity,
+  ITopFilmEntity,
+  IFilmsDataEntity,
+  ISingleFilmEntity,
+} from 'domains/index';
+import {
+  GetFilmByFilterResponse,
+  GetFilmDataByIdResponse,
+  GetFilmsByFilterParams,
+  GetFiltersResponse,
+  GetTopFilmsResponse,
+} from 'http/model';
 
 export const mapToInternalTopFilms = (films: GetTopFilmsResponse): ITopFilmEntity[] => {
   const topFilmArr: ITopFilmEntity[] = [];
@@ -111,4 +124,30 @@ export const mapToInternalFilms = (films: GetFilmByFilterResponse): IFilmsDataEn
   });
 
   return filmsArr;
+};
+
+export const mapToInternalFilm = (film: GetFilmDataByIdResponse): ISingleFilmEntity => {
+  const filmCategories = film.genres.map((genre) => genre.genre).join(', ');
+  const filmCountries = film.countries.map((country) => country.country).join(', ');
+  let filmType: ISingleFilmEntity['data']['type'] = 'Неизвестно';
+
+  if (film.type === 'FILM') filmType = 'Фильмы';
+  if (film.type === 'TV_SERIES' || film.type === 'MINI_SERIES') filmType = 'Сериалы';
+  if (film.type === 'TV_SHOW') filmType = 'ТВ-шоу';
+
+  const filmData: ISingleFilmEntity = {
+    category: filmCategories.length ? filmCategories : 'Неизвестно',
+    data: {
+      id: film.kinopoiskId.toString(),
+      name: film.nameRu ?? film.nameEn ?? film.nameOriginal ?? 'Неизвестно',
+      posterUrl: film.posterUrl,
+      type: filmType,
+      year: film.year ?? 'Неизвестно',
+      countries: filmCountries || 'Неизвестно',
+      rating: film.ratingKinopoisk ?? film.ratingImdb ?? 'Неизвестно',
+      description: film.description ?? 'Неизвестно',
+    },
+  };
+
+  return filmData;
 };

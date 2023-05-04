@@ -2,6 +2,7 @@ import { BasicAgent } from './BasicAgent';
 import {
   GetFilmByFilterResponse,
   GetFilmDataByIdParams,
+  GetFilmDataByIdResponse,
   GetFilmsByFilterParams,
   GetFiltersResponse,
   GetTopFilmsParams,
@@ -41,6 +42,12 @@ class FilmAgent extends BasicAgent {
         ...searchParams,
       },
     });
+
+    return res.data;
+  }
+
+  async getFilmById({ id }: GetFilmDataByIdParams): Promise<GetFilmDataByIdResponse> {
+    const res = await this.$http(`/api/v2.2/films/${id}`);
 
     return res.data;
   }

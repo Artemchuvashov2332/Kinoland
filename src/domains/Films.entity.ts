@@ -48,3 +48,10 @@ export interface ITopFilmEntity {
     countries: string;
   };
 }
+
+export interface ISingleFilmEntity {
+  category: string;
+  data: IFilmsDataEntity & {
+    countries: string;
+  };
+}
